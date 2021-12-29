@@ -17,13 +17,36 @@ score = 0
 def pick_data():
     current_compare.append(data[random.randint(1, len(data))])
 
+def game_setup():
+    pick_data()
+    pick_data()
+    game_loop()
+
 def game_loop():
-    pick_data()
-    pick_data()
+    global score
     print(logo)
     print(f"Name: {current_compare[0]['name']} \nTotal Followers: {current_compare[0]['follower_count']} \nDescription: {current_compare[0]['description']} \nCountry: {current_compare[0]['country']}")
     print(vs)
     print(f"Name: {current_compare[1]['name']} \nTotal Followers: ???? \nDescription: {current_compare[1]['description']} \nCountry: {current_compare[1]['country']}\n")
-    input(f"Is the number of followers of {current_compare[1]['name']} higher or lower than {current_compare[0]['name']}: ")
+    guess = input(f"Is the number of followers of {current_compare[1]['name']} higher or lower than {current_compare[0]['name']}: ").lower()
+    if guess == "higher":
+        if str(current_compare[0]['follower_count']) < str(current_compare[1]['follower_count']):
+            print("That's correct, here is the next round.")
+            current_compare.pop(0)
+            score = score + 1
+            pick_data()
+            game_loop()
+        elif str(current_compare[0]['follower_count']) > str(current_compare[1]['follower_count']):
+            print(f"That's incorrect, your score was {str(score)}. \nTry again.")
+    elif guess == "lower":
+        if str(current_compare[0]['follower_count']) > str(current_compare[1]['follower_count']):
+            print("That's correct, here is the next round.")
+            current_compare.pop(0)
+            score = score + 1
+            pick_data()
+            game_loop()
+        elif str(current_compare[0]['follower_count']) < str(current_compare[1]['follower_count']):
+            print(f"That's incorrect, your score was {str(score)}. \nTry again.")
 
-game_loop()
+
+game_setup()
