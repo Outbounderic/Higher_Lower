@@ -1,6 +1,8 @@
 from art import logo, vs
 from game_data import data
+from os import system, name
 import random
+
 
 current_compare = []
 score = 0
@@ -14,6 +16,12 @@ score = 0
 # If correct, remove first dictionary and generate new dictionary to continue game loop
 # If not correct, display you lose and exit game
 
+def clear():
+    if name == 'nt':
+        _ = system('cls')
+    else:
+        _ = system('clear')
+
 def pick_data():
     current_compare.append(data[random.randint(1, len(data))])
 
@@ -24,6 +32,7 @@ def game_setup():
 
 def game_loop():
     global score
+    clear()
     print(logo)
     print(f"Name: {current_compare[0]['name']} \nTotal Followers: {current_compare[0]['follower_count']} \nDescription: {current_compare[0]['description']} \nCountry: {current_compare[0]['country']}")
     print(vs)
