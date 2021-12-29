@@ -3,9 +3,9 @@ from game_data import data
 import random
 
 current_compare = []
+score = 0
 
 # Higher Lower game
-# From data randomly pick a dictionary
 # Present that information 
 # Randomly pick a second dictionary
 # Present that information but hide follower count
@@ -17,7 +17,13 @@ current_compare = []
 def pick_data():
     current_compare.append(data[random.randint(1, len(data))])
 
-pick_data()
-pick_data()
+def game_loop():
+    pick_data()
+    pick_data()
+    print(logo)
+    print(f"Name: {current_compare[0]['name']} \nTotal Followers: {current_compare[0]['follower_count']} \nDescription: {current_compare[0]['description']} \nCountry: {current_compare[0]['country']}")
+    print(vs)
+    print(f"Name: {current_compare[1]['name']} \nTotal Followers: ???? \nDescription: {current_compare[1]['description']} \nCountry: {current_compare[1]['country']}\n")
+    input(f"Is the number of followers of {current_compare[1]['name']} higher or lower than {current_compare[0]['name']}: ")
 
-print(current_compare)
+game_loop()
